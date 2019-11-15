@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema sys
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `sys` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema sys
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `sys` DEFAULT CHARACTER SET utf8 ;
+USE `sys` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`INSTRUMENT CATEGORY`
+-- Table `sys`.`INSTRUMENT CATEGORY`
 -- -----------------------------------------------------gg
-DROP TABLE IF EXISTS `mydb`.`INSTRUMENT CATEGORY` ;
+DROP TABLE IF EXISTS `sys`.`INSTRUMENT CATEGORY` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT CATEGORY` (
+CREATE TABLE IF NOT EXISTS `sys`.`INSTRUMENT CATEGORY` (
   `IC_ID` SMALLINT NOT NULL,
   `Name` VARCHAR(255) NULL,
   `Description` VARCHAR(255) NULL,
@@ -31,11 +31,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT CATEGORY` (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`INSTRUMENT MODEL`
+-- Table `sys`.`INSTRUMENT MODEL`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`INSTRUMENT MODEL` ;
+DROP TABLE IF EXISTS `sys`.`INSTRUMENT MODEL` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT MODEL` (
+CREATE TABLE IF NOT EXISTS `sys`.`INSTRUMENT MODEL` (
   `IM_ID` INT NOT NULL,
   `Name` VARCHAR(255) NULL,
   `Description` VARCHAR(45) NULL,
@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT MODEL` (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`INSTRUMENT TYPES`
+-- Table `sys`.`INSTRUMENT TYPES`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`INSTRUMENT TYPES` ;
+DROP TABLE IF EXISTS `sys`.`INSTRUMENT TYPES` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT TYPES` (
+CREATE TABLE IF NOT EXISTS `sys`.`INSTRUMENT TYPES` (
   `IT_ID` SMALLINT NOT NULL,
   `Name` VARCHAR(45) NULL,
   `Description` VARCHAR(255) NULL,
@@ -56,17 +56,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT TYPES` (
   INDEX `fk_INSTRUMENT TYPES_INSTRUMENT CATEGORY1_idx` (`INSTRUMENT CATEGORY_IC_ID` ASC) VISIBLE,
   CONSTRAINT `fk_INSTRUMENT TYPES_INSTRUMENT CATEGORY1`
     FOREIGN KEY (`INSTRUMENT CATEGORY_IC_ID`)
-    REFERENCES `mydb`.`INSTRUMENT CATEGORY` (`IC_ID`)
+    REFERENCES `sys`.`INSTRUMENT CATEGORY` (`IC_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PATIENT`
+-- Table `sys`.`PATIENT`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`PATIENT` ;
+DROP TABLE IF EXISTS `sys`.`PATIENT` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`PATIENT` (
+CREATE TABLE IF NOT EXISTS `sys`.`PATIENT` (
   `THC` SMALLINT NOT NULL,
   `Last_Name` VARCHAR(255) NOT NULL,
   `First_Name` VARCHAR(45) NULL,
@@ -74,11 +74,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`PATIENT` (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`VISIT`
+-- Table `sys`.`VISIT`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`VISIT` ;
+DROP TABLE IF EXISTS `sys`.`VISIT` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`VISIT` (
+CREATE TABLE IF NOT EXISTS `sys`.`VISIT` (
   `Visit_ID` INT NOT NULL,
   `Visit_nr` SMALLINT NULL,
   `Date` DATETIME NULL,
@@ -88,17 +88,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`VISIT` (
   INDEX `fk_VISIT_PATIENT1_idx` (`PATIENT_THC` ASC) VISIBLE,
   CONSTRAINT `fk_VISIT_PATIENT1`
     FOREIGN KEY (`PATIENT_THC`)
-    REFERENCES `mydb`.`PATIENT` (`THC`)
+    REFERENCES `sys`.`PATIENT` (`THC`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`INSTRUMENT`
+-- Table `sys`.`INSTRUMENT`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`INSTRUMENT` ;
+DROP TABLE IF EXISTS `sys`.`INSTRUMENT` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT` (
+CREATE TABLE IF NOT EXISTS `sys`.`INSTRUMENT` (
   `Instr_ID` SMALLINT NOT NULL,
   `Comments` VARCHAR(45) NULL,
   `INSTRUMENT CATEGORY_IC_ID` SMALLINT NOT NULL,
@@ -113,32 +113,32 @@ CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT` (
   INDEX `fk_INSTRUMENT_VISIT1_idx` (`VISIT_Visit_ID` ASC, `VISIT_PATIENT_THC` ASC) VISIBLE,
   CONSTRAINT `fk_INSTRUMENT_INSTRUMENT CATEGORY1`
     FOREIGN KEY (`INSTRUMENT CATEGORY_IC_ID`)
-    REFERENCES `mydb`.`INSTRUMENT CATEGORY` (`IC_ID`)
+    REFERENCES `sys`.`INSTRUMENT CATEGORY` (`IC_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_INSTRUMENT_INSTRUMENT MODEL1`
     FOREIGN KEY (`INSTRUMENT MODEL_IM_ID`)
-    REFERENCES `mydb`.`INSTRUMENT MODEL` (`IM_ID`)
+    REFERENCES `sys`.`INSTRUMENT MODEL` (`IM_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_INSTRUMENT_INSTRUMENT TYPES1`
     FOREIGN KEY (`INSTRUMENT TYPES_IT_ID`)
-    REFERENCES `mydb`.`INSTRUMENT TYPES` (`IT_ID`)
+    REFERENCES `sys`.`INSTRUMENT TYPES` (`IT_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_INSTRUMENT_VISIT1`
     FOREIGN KEY (`VISIT_Visit_ID` , `VISIT_PATIENT_THC`)
-    REFERENCES `mydb`.`VISIT` (`Visit_ID` , `PATIENT_THC`)
+    REFERENCES `sys`.`VISIT` (`Visit_ID` , `PATIENT_THC`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`COUNSELING`
+-- Table `sys`.`COUNSELING`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`COUNSELING` ;
+DROP TABLE IF EXISTS `sys`.`COUNSELING` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`COUNSELING` (
+CREATE TABLE IF NOT EXISTS `sys`.`COUNSELING` (
   `Counseling_ID` SMALLINT NOT NULL,
   `Type` VARCHAR(1) NULL,
   `Comments` VARCHAR(32) NULL,
@@ -147,20 +147,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`COUNSELING` (
   PRIMARY KEY (`Counseling_ID`),
   CONSTRAINT `fk_COUNSELING_VISIT1`
     FOREIGN KEY (`VISIT_Visit_ID`)
-    REFERENCES `mydb`.`VISIT` (`Visit_ID`)
+    REFERENCES `sys`.`VISIT` (`Visit_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`REM`
+-- Table `sys`.`REM`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`REM` ;
+DROP TABLE IF EXISTS `sys`.`REM` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`REM` (
+CREATE TABLE IF NOT EXISTS `sys`.`REM` (
   `REM_ID` SMALLINT NOT NULL,
   `Comments` VARCHAR(32) NULL,
-  `Freq_RE` DECIMAL(28) NULL DEFAULT CURRENT_TIMESTAMP,
+  `Freq_RE` DECIMAL(28) NULL,
   `T_R_SPL` DECIMAL(28) NULL,
   `Mix_R_SPL` DECIMAL(28) NULL,
   `Mix_R_SL` DECIMAL(28) NULL,
@@ -183,12 +183,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`REM` (
   INDEX `fk_REM_VISIT1_idx` (`VISIT_Visit_ID` ASC) VISIBLE,
   CONSTRAINT `fk_REM_INSTRUMENT`
     FOREIGN KEY (`INSTRUMENT_Instr_ID`)
-    REFERENCES `mydb`.`INSTRUMENT` (`Instr_ID`)
+    REFERENCES `sys`.`INSTRUMENT` (`Instr_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_REM_VISIT1`
     FOREIGN KEY (`VISIT_Visit_ID`)
-    REFERENCES `mydb`.`VISIT` (`Visit_ID`)
+    REFERENCES `sys`.`VISIT` (`Visit_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
