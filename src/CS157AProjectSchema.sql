@@ -20,7 +20,7 @@ USE `mydb` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`INSTRUMENT CATEGORY`
--- -----------------------------------------------------
+-- -----------------------------------------------------gg
 DROP TABLE IF EXISTS `mydb`.`INSTRUMENT CATEGORY` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`INSTRUMENT CATEGORY` (
