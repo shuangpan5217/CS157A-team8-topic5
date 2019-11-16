@@ -22,7 +22,7 @@ public class VisitMain extends JFrame{
 		add(mainPanel);
 		
 		setTitle("Visit");
-//		setPreferredSize(new Dimension(450, 300));
+//		setPreferredSize(new Dimension(450, 300)); //
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    pack();
 	    setVisible(true);
