@@ -24,7 +24,6 @@ public class CreateInterface extends JFrame{
 	private Connection conn;
 	private Statement stmt;
 	private JPanel visitPanel;
-//	private LocalDate localDate;
 	private JTextArea commentArea;
 	private JPanel comment;
 //	private VisitMain vm;
