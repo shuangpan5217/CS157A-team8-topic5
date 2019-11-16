@@ -44,7 +44,7 @@ public class VisitMain extends JFrame{
 //				ownReference.setVisible(false);
 				try {
 					CreateInterface cif = new CreateInterface();
-//					cif.setVM(ownReference);
+//					cif.setVM(ownReference); //
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
