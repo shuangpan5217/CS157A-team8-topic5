@@ -10,6 +10,9 @@ import javax.swing.border.Border;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -21,9 +24,10 @@ public class CreateInterface extends JFrame{
 	private Connection conn;
 	private Statement stmt;
 	private JPanel visitPanel;
-	private LocalDate localDate;
+//	private LocalDate localDate;
 	private JTextArea commentArea;
 	private JPanel comment;
+//	private VisitMain vm;
 	
 	public CreateInterface() throws SQLException {
 		connectToDataBase();
@@ -38,7 +42,7 @@ public class CreateInterface extends JFrame{
 	    
 		setTitle("Visit");
 		setPreferredSize(new Dimension(450, 300));
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    pack();
 	    setVisible(true);
 	}
@@ -77,6 +81,11 @@ public class CreateInterface extends JFrame{
 		visitNumberField.setText("5");
 		visitNumberField.setEditable(false);
 		
+		JLabel categoryLabel = new JLabel("Category: ");
+		JTextField categoryField = new JTextField(3); 
+		categoryField.setText("5");
+		categoryField.setEditable(true);
+		
 		visitPanel.add(visitIDLabel);
 		visitPanel.add(visitIDField);
 		visitPanel.add(dateLabel);
@@ -85,6 +94,8 @@ public class CreateInterface extends JFrame{
 		visitPanel.add(THCField);
 		visitPanel.add(visitNumberLabel);
 		visitPanel.add(visitNumberField);
+		visitPanel.add(categoryLabel);
+		visitPanel.add(categoryField);
 	}
 	
 	private void CreateCommentsArea() {
@@ -96,4 +107,9 @@ public class CreateInterface extends JFrame{
 		comment.add(commentLabel);
 		comment.add(commentArea);
 	}
+	/*
+	public void setVM(VisitMain vm) {
+		this.vm = vm;
+	}
+	*/
 }
