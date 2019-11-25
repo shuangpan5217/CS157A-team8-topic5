@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `sys`.`INSTRUMENT MODEL` (
   PRIMARY KEY (`IM_ID`));
 
 
--- -----------------------------------------------------
+-- ------------------------------------------------------
 -- Table `sys`.`INSTRUMENT TYPES`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `sys`.`INSTRUMENT TYPES` ;
