@@ -5,28 +5,23 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Container;
 import java.sql.SQLException;
-import java.util.EventListener;
 import javax.swing.BoxLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.border.Border;
-import javax.swing.BorderFactory;
-import javax.swing.JTextArea;
 
+
+import javax.swing.BorderFactory;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
 
 
-public class Instrument extends JFrame {
+public class Instrument extends JFrame implements ActionListener {
 	
 	private Instrument ownReference;
-	
 	private JPanel InstrPanel;
 	private static final long serialVersionUID =1L;
 	private JPanel comments;
@@ -34,7 +29,9 @@ public class Instrument extends JFrame {
 	private JPanel visitPanel;
 	private JPanel upperPanel, mainPanel;
 	private JComboBox instrModelCombo;
+	private JTextField lastName, firstName, date, thc, instrCat, instrType, addComments, visitIDField ;
 	final Container contentPane = getContentPane();
+	
 
 	
 	public Instrument() {
@@ -61,30 +58,27 @@ public class Instrument extends JFrame {
 		visitPanel.setBorder(blackline);
 		
 		JLabel visitIDLabel = new JLabel("Visit ID: ");
-		JTextField visitIDField = new JTextField();
+		visitIDField = new JTextField();
 		visitIDField.setText("1");  //to be modified
-		visitIDField.setEditable(false);
 		
 		JLabel dateLabel = new JLabel("Date: ");
 		JTextField dateField = new JTextField();
 		dateField.setText(LocalDate.now().toString());
-		dateField.setEditable(false);
+
 		
 		JLabel THCLabel = new JLabel("THC#: ");
-		JTextField THCField = new JTextField(6); // to be modified
-		THCField.setEditable(true);
+		thc = new JTextField(6); // to be modified
 		
 		JLabel visitNumberLabel = new JLabel("Visit Number: ");
 		JTextField visitNumberField = new JTextField(3); 
 		visitNumberField.setText("5");
-		visitNumberField.setEditable(false);
 		
 		visitPanel.add(visitIDLabel);
 		visitPanel.add(visitIDField);
 		visitPanel.add(dateLabel);
 		visitPanel.add(dateField);
 		visitPanel.add(THCLabel);
-		visitPanel.add(THCField);
+		visitPanel.add(thc);
 		visitPanel.add(visitNumberLabel);
 		visitPanel.add(visitNumberField);
 	}
@@ -95,45 +89,45 @@ public class Instrument extends JFrame {
         JLabel patientInfoLabel = new JLabel("Patient's Information: ");
         JLabel lastNameLabel = new JLabel("Last Name: ");
         JLabel firstNameLabel = new JLabel("First Name: ");
-        JTextField lastNameField = new JTextField();
-        JTextField firstNameField = new JTextField();
-        lastNameField.setText("T");
-        firstNameField.setText("Mike");
-        lastNameField.setEditable(false);
+        lastName = new JTextField(10);
+        firstName = new JTextField(10);
+        lastName.setEditable(true);
+        firstName.setEditable(true);
+        lastName.addActionListener(this);
+        firstName.addActionListener(this);
+ 
         
         JLabel dateLabel = new JLabel("Date: ");
-        JTextField dateField = new JTextField();
-        dateField.setText(LocalDate.now().toString());
-        dateField.setEditable(false);
+        date = new JTextField();
+        date.setText(LocalDate.now().toString());
+
         
         JLabel THCLabel = new JLabel("THC#: ");
-        JTextField THCField = new JTextField(6); // to be modified
-        THCField.setText("102322935");
-        THCField.setEditable(false);
+        thc = new JTextField(6);
+        thc.addActionListener(this);// to be modified
         
-        JLabel category = new JLabel("Patient Category: ");
-        JTextField categoryField = new JTextField();
-        categoryField.setText("XXXX");
-        categoryField.setEditable(false);
+        JLabel category = new JLabel("Instrument Category: ");
+        instrCat = new JTextField(2);
+        instrCat.addActionListener(this);
+
         
         JLabel type = new JLabel("Instrument Type: ");
-        JTextField typeField = new JTextField();
-        typeField.setText("Typexxx");
-        typeField.setEditable(false);
-        
+        instrType = new JTextField(2);
+        instrType.addActionListener(this);
+
         upperPanel.add(patientInfoLabel);
         upperPanel.add(lastNameLabel);
-        upperPanel.add(lastNameField);
+        upperPanel.add(lastName);
         upperPanel.add(firstNameLabel);
-        upperPanel.add(firstNameField);
+        upperPanel.add(firstName);
         upperPanel.add(dateLabel);
-        upperPanel.add(dateField);
+        upperPanel.add(date);
         upperPanel.add(THCLabel);
-        upperPanel.add(THCField);
+        upperPanel.add(thc);
         upperPanel.add(category);
-        upperPanel.add(categoryField);
+        upperPanel.add(instrCat);
         upperPanel.add(type);
-        upperPanel.add(typeField);
+        upperPanel.add(instrType);
         
         setTitle("Patient's Information:");
         MainPanel();
@@ -145,57 +139,34 @@ public class Instrument extends JFrame {
                
     }
 	
-	class ComboItem
-	{
-	    private String modelNum;
-
-
-	    public ComboItem(String model)
-	    {
-	        this.modelNum = model;
-	    }
-
-	    @Override
-	    public String toString()
-	    {
-	        return modelNum;
-	    }
-
-	    public String getKey()
-	    {
-	        return modelNum;
-	    }
-
-	}
-	
     private void MainPanel() {
     	
         mainPanel = new JPanel();
        
         
         JLabel instrModelLabel = new JLabel("Instrument Model: ");
-        JComboBox instrModelCombo = new JComboBox();
-        instrModelCombo.addItem(new ComboItem("Model Number 1"));
-        instrModelCombo.addItem(new ComboItem("Model Number 2"));
-        instrModelCombo.addItem(new ComboItem("Model Number 3"));
+        
+        String modelNumber[]= {"1","2", "3","4"};
+        instrModelCombo = new JComboBox(modelNumber);
 
         JLabel commentsLabel = new JLabel("Additional Comments About the Instrument: ");
-        JTextArea commentsTextArea = new JTextArea(10,20); 
-        commentsTextArea.setEditable(true);
+        addComments = new JTextField(20); 
+        addComments.setEditable(true);
+        addComments.addActionListener(this);
         
         mainPanel.add(instrModelLabel);
         mainPanel.add(instrModelCombo);
         mainPanel.add(commentsLabel);
-        mainPanel.add(commentsTextArea);
+        mainPanel.add(addComments);
         submitButton();
         
     }
 
-    
+    // take back to add/edit patient interface
 	public void backButton() {
 		visitPanel = new JPanel();
 		
-		JButton newVisit = new JButton("Back");
+		JButton newVisit = new JButton("Cancel");
 		
 		visitPanel.add(newVisit);
 
@@ -224,7 +195,7 @@ public class Instrument extends JFrame {
 		
 		visitPanel = new JPanel();
 		
-		JButton newVisit = new JButton("Submit");
+		JButton newVisit = new JButton("Save");
 		
 		visitPanel.add(newVisit);
 
@@ -251,5 +222,26 @@ public class Instrument extends JFrame {
 	public void setOwnReference(Instrument ownReference) {
 		this.ownReference = ownReference;
 		
+	}
+	
+	public void actionPerformed(ActionEvent actionEvent) {
+		String lastN = lastName.getText();
+		String firstN = firstName.getText();
+		String date1 = date.getText();
+		String instrumentCategory = instrCat.getText();
+		String instrumentType = instrType.getText();
+		String additionalComments = addComments.getText();
+		String visitID = visitIDField.getText();
+		String modelNo = (String)instrModelCombo.getSelectedItem();
+		String thcNo = thc.getText();
+		
+		//sql statements
+		try {
+
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("error: "+e);
+		}
 	}
 }
