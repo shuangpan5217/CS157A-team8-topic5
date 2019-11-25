@@ -47,7 +47,7 @@ public class Instrument extends JFrame implements ActionListener {
 		
 		setTitle("Instrument Details");
 		setPreferredSize(new Dimension(450, 550)); //
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    pack();
 	    setVisible(true);
 	}

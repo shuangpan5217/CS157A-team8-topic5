@@ -54,7 +54,7 @@ public class Main extends JFrame{
 	    
             //setTitle("Visit");
             setPreferredSize(new Dimension(450, 300));
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    pack();
 	    setVisible(true);
 	}

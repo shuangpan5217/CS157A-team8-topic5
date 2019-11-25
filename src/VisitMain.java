@@ -1,14 +1,13 @@
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.EventListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class VisitMain extends JFrame{
+	@SuppressWarnings("unused")
 	private VisitMain ownReference;
 	private JPanel mainPanel;
 	/**
@@ -43,6 +42,7 @@ public class VisitMain extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 //				ownReference.setVisible(false);
 				try {
+					@SuppressWarnings("unused")
 					CreateInterface cif = new CreateInterface();
 //					cif.setVM(ownReference); //
 				} catch (SQLException e1) {
@@ -58,6 +58,7 @@ public class VisitMain extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 //				ownReference.setVisible(false);
 				try {
+					@SuppressWarnings("unused")
 					CreateInterface cif = new CreateInterface();
 //					cif.setVM(ownReference);
 				} catch (SQLException e1) {
