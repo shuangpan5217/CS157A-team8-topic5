@@ -65,12 +65,14 @@ CREATE TABLE IF NOT EXISTS `sys`.`INSTRUMENT TYPES` (
 -- Table `sys`.`PATIENT`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `sys`.`PATIENT` ;
-
+  
 CREATE TABLE IF NOT EXISTS `sys`.`PATIENT` (
   `THC` SMALLINT NOT NULL,
   `Last_Name` VARCHAR(255) NOT NULL,
-  `First_Name` VARCHAR(45) NULL,
+  `First_Name` VARCHAR(45) NOT NULL,
+  `Patient_Category` INT NULL,
   PRIMARY KEY (`THC`));
+
 
 
 -- -----------------------------------------------------
