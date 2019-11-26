@@ -41,7 +41,7 @@ public class CreateInterface extends JFrame{
 	private JButton counsel;
 	private JPanel middlePanel;
 	private JComboBox<Integer> categoryField;
-	private JTextField ins;
+	private JComboBox<Integer> ins;
 	private JCheckBox rem;
 	private JTextField THCField;
 	private JTextField firstNameField;
@@ -168,7 +168,7 @@ public class CreateInterface extends JFrame{
 		JLabel categoryLabel = new JLabel("Category: ");
 		categoryField = new JComboBox<Integer>(new Integer[] {0, 1, 2, 3, 4});
 		JLabel instruLabel = new JLabel("Instrument");
-		ins = new JTextField(6);
+		ins = new JComboBox<Integer>(new Integer[] {1, 2, 3, 4});
 		JLabel remLabel = new JLabel("REM");
 		rem = new JCheckBox(); 
 		

@@ -60,7 +60,7 @@ public class VisitMain extends JFrame{
 //				ownReference.setVisible(false);
 				try {
 					@SuppressWarnings("unused")
-					CreateInterface cif = new CreateInterface();
+					ViewEditVisit vev = new ViewEditVisit();
 //					cif.setVM(ownReference);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
