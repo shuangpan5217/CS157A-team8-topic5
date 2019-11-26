@@ -150,7 +150,8 @@ public class Instrument extends JFrame implements ActionListener {
         JLabel instrModelLabel = new JLabel("Instrument Model: ");
         
         String modelNumber[]= {"1","2", "3","4"};
-        instrModelCombo = new JComboBox(modelNumber);
+        //instrModelCombo = new JComboBox(modelNumber);
+        JComboBox<String> instrModelCombo = new JComboBox<>(modelNumber);
 
         JLabel commentsLabel = new JLabel("Additional Comments About the Instrument: ");
         addComments = new JTextField(20); 
