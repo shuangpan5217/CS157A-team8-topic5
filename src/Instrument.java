@@ -29,7 +29,7 @@ public class Instrument extends JFrame implements ActionListener {
 	private JPanel visitPanel;
 	private JPanel upperPanel, mainPanel;
 	private JComboBox instrModelCombo;
-	private JTextField lastName, firstName, date, thc, instrCat, instrType, addComments, visitIDField ;
+	private JTextField lastName, firstName, date, thc, instrCat, instrType, addComments, visitIDField;
 	final Container contentPane = getContentPane();
 	
 
@@ -68,6 +68,7 @@ public class Instrument extends JFrame implements ActionListener {
 		
 		JLabel THCLabel = new JLabel("THC#: ");
 		thc = new JTextField(6); // to be modified
+		thc.setEditable(false);
 		
 		JLabel visitNumberLabel = new JLabel("Visit Number: ");
 		JTextField visitNumberField = new JTextField(3); 
@@ -91,8 +92,8 @@ public class Instrument extends JFrame implements ActionListener {
         JLabel firstNameLabel = new JLabel("First Name: ");
         lastName = new JTextField(10);
         firstName = new JTextField(10);
-        lastName.setEditable(true);
-        firstName.setEditable(true);
+        lastName.setEditable(false);
+        firstName.setEditable(false);
         lastName.addActionListener(this);
         firstName.addActionListener(this);
  
@@ -109,11 +110,13 @@ public class Instrument extends JFrame implements ActionListener {
         JLabel category = new JLabel("Instrument Category: ");
         instrCat = new JTextField(2);
         instrCat.addActionListener(this);
+        instrCat.setEditable(false);
 
         
         JLabel type = new JLabel("Instrument Type: ");
         instrType = new JTextField(2);
         instrType.addActionListener(this);
+        instrType.setEditable(false);
 
         upperPanel.add(patientInfoLabel);
         upperPanel.add(lastNameLabel);
