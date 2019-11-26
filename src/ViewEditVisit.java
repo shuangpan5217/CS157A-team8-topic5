@@ -22,7 +22,7 @@ public class ViewEditVisit extends JFrame{
 	private Statement stmt;
 	private JTable jtable;
 	private JPanel tablePanel;
-	public ViewEditVisit() throws SQLException {
+	public ViewEditVisit() throws SQLException { 
 		connectToDataBase();
 		createTablePanel();
 		
