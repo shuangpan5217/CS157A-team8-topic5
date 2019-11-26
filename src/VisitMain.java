@@ -50,7 +50,7 @@ public class VisitMain extends JFrame{
 					e1.printStackTrace();
 				}
 			}
-			
+			 
 		});
 		
 		editVisit.addActionListener(new ActionListener() {

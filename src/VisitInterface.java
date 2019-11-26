@@ -5,4 +5,4 @@ public class VisitInterface {
 		VisitMain vm = new VisitMain();
 		vm.setOwnReference(vm);
 	}
-}
+} 

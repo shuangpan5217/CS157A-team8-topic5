@@ -235,7 +235,7 @@ public class CreateInterface extends JFrame{
 				ownReference.dispose();
 			}
 			
-		});
+		}); 
 		
 		lowerPanel.add(saveButton);
 		lowerPanel.add(cancelButton);
