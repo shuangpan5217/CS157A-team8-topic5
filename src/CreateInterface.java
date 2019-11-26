@@ -170,7 +170,7 @@ public class CreateInterface extends JFrame{
 		JLabel instruLabel = new JLabel("Instrument");
 		ins = new JTextField(6);
 		JLabel remLabel = new JLabel("REM");
-		rem = new JCheckBox();
+		rem = new JCheckBox(); 
 		
 		middlePanel.add(categoryLabel);
 		middlePanel.add(categoryField);
