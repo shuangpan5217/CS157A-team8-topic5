@@ -48,6 +48,7 @@ public class CreateInterface extends JFrame{
 	private JTextField lastNameField;
 	private JPanel lowerPanel;
 	private JComboBox<Integer> instruCateField;
+	private JTextField visitNumberField;
 //	private VisitMain vm;
 	
 	public CreateInterface() throws SQLException {
@@ -90,8 +91,7 @@ public class CreateInterface extends JFrame{
 		visitPanel.setBorder(blackline);
 		
 		JLabel visitIDLabel = new JLabel("Visit ID: ");
-		JTextField visitIDField = new JTextField();
-		visitIDField.setText("1");  //to be modified
+		JTextField visitIDField = new JTextField(6);
 		visitIDField.setEditable(false);
 		
 		JLabel dateLabel = new JLabel("Date: ");
@@ -106,7 +106,7 @@ public class CreateInterface extends JFrame{
 		lastNameField = new JTextField(6);
 		
 		JLabel THCLabel = new JLabel("THC#: ");
-		THCField = new JTextField(6); // to be modified
+		THCField = new JTextField(6);
 		THCField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -117,15 +117,45 @@ public class CreateInterface extends JFrame{
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-				
+				if(THCField.getText().length() != 0) {
+					int thc = Integer.parseInt(THCField.getText());
+					String query = "select last_name, first_name from patient where thc = " + thc;
+					try {
+						ResultSet rs = stmt.executeQuery(query);
+						while(rs.next()) {
+							lastNameField.setText(rs.getString("last_name"));
+							firstNameField.setText(rs.getString("first_name"));
+						}
+						
+						rs = stmt.executeQuery("select max(visit_id) as id from visit");
+						
+						if(rs.next() && rs.getString("id") == null) {
+							visitIDField.setText("1");
+						}
+						else {
+							visitIDField.setText(Integer.toString(rs.getInt("id")) + 1);
+						}
+						
+						rs = stmt.executeQuery("select max(visit_nr) as nr from visit where date = '" + LocalDate.now().toString() + "'");
+						if(rs.next() && rs.getString("nr") == null) {
+							visitNumberField.setText("1");
+						}
+						else {
+							visitNumberField.setText(Integer.toString(rs.getInt("id")) + 1);
+						}
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 			
 		});
 		THCField.setEditable(true);
 		
 		JLabel visitNumberLabel = new JLabel("Visit Number: ");
-		JTextField visitNumberField = new JTextField(3); 
+		visitNumberField = new JTextField(3); 
 		visitNumberField.setText("5");
 		visitNumberField.setEditable(false);
 		
@@ -193,7 +223,10 @@ public class CreateInterface extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				@SuppressWarnings("unused")
-				Instrument ins = new Instrument();
+				Instrument inst = new Instrument();
+				inst.setOwnReference(inst);
+				inst.setUpperPanel(firstNameField.getText(), lastNameField.getText(), Integer.parseInt(THCField.getText())
+						, (String)ins.getSelectedItem(), (int) instruCateField.getSelectedItem());
 			}
 			
 		});
