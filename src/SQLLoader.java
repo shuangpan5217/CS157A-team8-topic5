@@ -95,6 +95,9 @@ public class SQLLoader
 			"insert into INSTRUMENT values(2, 'this is an instrument for patient testtwo ',  7, 11 ,5 , 12, 2 )",
 			"insert into INSTRUMENT values(3, 'this is an instrument for patient testthree ', 7, 12 , 6 , 1, 3)",
 
+			"insert into REM values(987, 'this is testone REM', 1.1 ,2.1 ,3.1,4.1 ,5.1 ,6.1 ,7.1, 8.1 ,9.1 ,10.1 ,11.1 ,12.1, 13.1 , 14.1 ,15.1 ,16.1 , 1, 13)",
+			"insert into REM values(98, 'this is testtwo REM', 1.2 ,2.9 ,3.8 ,4.6 ,5.1 ,6.1 ,7,8,11 ,10,11 ,12, 13, 14,15,16, 2, 12)",
+			"insert into REM values(96, 'this is testthree REM', 1.3 ,2.5 ,3.6 ,4,5,6,7,8,9,10,11 ,12, 13, 14,15,16, 3, 1)",
 
 
 
