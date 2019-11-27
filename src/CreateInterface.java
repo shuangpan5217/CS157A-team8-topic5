@@ -49,6 +49,8 @@ public class CreateInterface extends JFrame{
 	private JPanel lowerPanel;
 	private JComboBox<Integer> instruCateField;
 	private JTextField visitNumberField;
+	private String comment;
+	private int instrumentModel;
 //	private VisitMain vm;
 	
 	public CreateInterface() throws SQLException {
@@ -225,6 +227,7 @@ public class CreateInterface extends JFrame{
 				@SuppressWarnings("unused")
 				Instrument inst = new Instrument();
 				inst.setOwnReference(inst);
+				inst.setCreateReference(ownReference);
 				inst.setUpperPanel(firstNameField.getText(), lastNameField.getText(), Integer.parseInt(THCField.getText())
 						, (String)ins.getSelectedItem(), (int) instruCateField.getSelectedItem());
 			}
@@ -282,5 +285,11 @@ public class CreateInterface extends JFrame{
 	
 	public void setOwnReference(CreateInterface reference) {
 		this.ownReference = reference;
+	}
+	
+	public void setInstrumentData(String comment, int instrumentModel) {
+		this.instrumentModel = instrumentModel;
+		this.comment = comment;
+		System.out.println(this.instrumentModel + " " + comment);
 	}
 }
