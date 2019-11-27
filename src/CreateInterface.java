@@ -41,12 +41,13 @@ public class CreateInterface extends JFrame{
 	private JButton counsel;
 	private JPanel middlePanel;
 	private JComboBox<Integer> categoryField;
-	private JComboBox<Integer> ins;
+	private JComboBox<String> ins;
 	private JCheckBox rem;
 	private JTextField THCField;
 	private JTextField firstNameField;
 	private JTextField lastNameField;
 	private JPanel lowerPanel;
+	private JComboBox<Integer> instruCateField;
 //	private VisitMain vm;
 	
 	public CreateInterface() throws SQLException {
@@ -165,10 +166,12 @@ public class CreateInterface extends JFrame{
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		middlePanel.setBorder(blackline);
 		
-		JLabel categoryLabel = new JLabel("Category: ");
+		JLabel categoryLabel = new JLabel("Patient Category: ");
 		categoryField = new JComboBox<Integer>(new Integer[] {0, 1, 2, 3, 4});
-		JLabel instruLabel = new JLabel("Instrument");
-		ins = new JComboBox<Integer>(new Integer[] {1, 2, 3, 4});
+		JLabel instruCategory = new JLabel("Instrument Category");
+		instruCateField = new JComboBox<Integer>(new Integer[] {1, 2, 3, 4});
+		JLabel instruLabel = new JLabel("Instrument type");
+		ins = new JComboBox<String>(new String[] {"V", "GS", "GH", "HA", ""});
 		JLabel remLabel = new JLabel("REM");
 		rem = new JCheckBox(); 
 		
@@ -176,6 +179,8 @@ public class CreateInterface extends JFrame{
 		middlePanel.add(categoryField);
 		middlePanel.add(instruLabel);
 		middlePanel.add(ins);
+		middlePanel.add(instruCategory);
+		middlePanel.add(instruCateField);
 		middlePanel.add(remLabel);
 		middlePanel.add(rem);
 	}
