@@ -62,6 +62,8 @@ public class CreateInterface extends JFrame {
     private int freqREI, tRSI, mRSI, tRSPLI, tRSLI, mRSPLI, mRSLI;
     private int freqLEI, tLSI, mLSI, tLSPLI, tLSLI, mLSPLI, mLSLI;
     
+    private String counselingComment;
+    
     public CreateInterface() throws SQLException {
         connectToDataBase();
 
@@ -263,7 +265,9 @@ public class CreateInterface extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Counseling newCounsel = new Counseling();
+                Counseling newCounsel = new Counseling(newTHC);
+                newCounsel.setOwnReference(newCounsel);
+                newCounsel.setCreateReference(ownReference);
             }
 
         });
@@ -281,9 +285,13 @@ public class CreateInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ownReference.dispose();
+                
+                //
                 System.out.println("" + freqREI + tRSI + mRSI + tRSPLI
                     + tRSLI + mRSPLI + mRSLI + freqLEI + tLSI + mLSI
                     + tLSPLI + tLSLI + mLSPLI + mLSLI);
+                //
+                System.out.println("Counseling comment = " + counselingComment);
             }
 
         });
@@ -331,5 +339,9 @@ public class CreateInterface extends JFrame {
         this.mLSPLI = m;
         this.mLSLI = n;        
         
+    }
+    
+    public void setCounselingComment(String comment) {
+        this.counselingComment = comment;
     }
 }

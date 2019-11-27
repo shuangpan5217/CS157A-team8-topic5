@@ -102,7 +102,8 @@ public class Main extends JFrame {
                 + " THC = " + thc + ";");
 
         rs.next();
-
+        
+        //
         THCField.setText(thc);
         categoryField.setText(String.valueOf(rs.getInt(4)));
         nameField.setText(rs.getString(3) + " " + rs.getString(2));
@@ -169,7 +170,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 createReference.setREMData(freqREI, tRSI, mRSI, tRSPLI,
-                        tRSLI, mRSPLI, mRSLI, freqLEI, tLSI, mLSI, tLSPLI, 
+                        tRSLI, mRSPLI, mRSLI, freqLEI, tLSI, mLSI, tLSPLI,
                         tLSLI, mLSPLI, mLSLI);
                 ownReference.dispose();
             }
@@ -229,13 +230,14 @@ public class Main extends JFrame {
         freqRET.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                freqREI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                freqREI = Integer.parseInt(freqRET.getText());
-                System.out.println("freqREI = " + freqREI);
+                if (freqRET.getText().length() != 0) {
+                    freqREI = Integer.parseInt(freqRET.getText());
+                    System.out.println("freqREI = " + freqREI);
+                }
             }
 
         });
@@ -243,13 +245,14 @@ public class Main extends JFrame {
         tRST.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                tRSI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                tRSI = Integer.parseInt(tRST.getText());
-                System.out.println("tRSI = " + tRSI);
+                if (tRST.getText().length() != 0) {
+                    tRSI = Integer.parseInt(tRST.getText());
+                    System.out.println("tRSI = " + tRSI);
+                }
             }
 
         });
@@ -257,13 +260,14 @@ public class Main extends JFrame {
         mRST.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                mRSI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                mRSI = Integer.parseInt(mRST.getText());
-                System.out.println("mRSI = " + mRSI);
+                if (mRST.getText().length() != 0) {
+                    mRSI = Integer.parseInt(mRST.getText());
+                    System.out.println("mRSI = " + mRSI);
+                }
             }
 
         });
@@ -271,13 +275,14 @@ public class Main extends JFrame {
         tRSPLT.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                tRSPLI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                tRSPLI = Integer.parseInt(tRSPLT.getText());
-                System.out.println("tRSPLI = " + tRSPLI);
+                if (tRSPLT.getText().length() != 0) {
+                    tRSPLI = Integer.parseInt(tRSPLT.getText());
+                    System.out.println("tRSPLI = " + tRSPLI);
+                }
             }
 
         });
@@ -285,13 +290,14 @@ public class Main extends JFrame {
         tRSLT.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                tRSPLI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                tRSLI = Integer.parseInt(tRSLT.getText());
-                System.out.println("tRSLI = " + tRSLI);
+                if (tRSLT.getText().length() != 0) {
+                    tRSLI = Integer.parseInt(tRSLT.getText());
+                    System.out.println("tRSLI = " + tRSLI);
+                }
             }
 
         });
@@ -299,13 +305,14 @@ public class Main extends JFrame {
         mRSPLT.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                mRSPLI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                mRSPLI = Integer.parseInt(mRSPLT.getText());
-                System.out.println("mRSPLI = " + mRSPLI);
+                if (mRSPLT.getText().length() != 0) {
+                    mRSPLI = Integer.parseInt(mRSPLT.getText());
+                    System.out.println("mRSPLI = " + mRSPLI);
+                }
             }
 
         });
@@ -313,13 +320,14 @@ public class Main extends JFrame {
         mRSLT.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
-                mRSLI = 0;
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
-                mRSLI = Integer.parseInt(mRSLT.getText());
-                System.out.println("mRSLI = " + mRSLI);
+                if (mRSLT.getText().length() != 0) {
+                    mRSLI = Integer.parseInt(mRSLT.getText());
+                    System.out.println("mRSLI = " + mRSLI);
+                }
             }
 
         });
@@ -382,8 +390,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-                freqLEI = Integer.parseInt(freqLET.getText());
-                System.out.println("freqLEI = " + freqLEI);
+                if (freqLET.getText().length() != 0) {
+                    freqLEI = Integer.parseInt(freqLET.getText());
+                    System.out.println("freqLEI = " + freqLEI);
+                }
 
             }
 
@@ -396,8 +406,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-                tLSI = Integer.parseInt(tLST.getText());
-                System.out.println("tLSI = " + tLSI);
+                if (tLST.getText().length() != 0) {
+                    tLSI = Integer.parseInt(tLST.getText());
+                    System.out.println("tLSI = " + tLSI);
+                }
 
             }
 
@@ -410,8 +422,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-                mRSI = Integer.parseInt(mLST.getText());
-                System.out.println("mLSI = " + mLSI);
+                if (mLST.getText().length() != 0) {
+                    mLSI = Integer.parseInt(mLST.getText());
+                    System.out.println("mLSI = " + mLSI);
+                }
 
             }
 
@@ -424,8 +438,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-                tLSPLI = Integer.parseInt(tLSPLT.getText());
-                System.out.println("tLSPLI = " + tLSPLI);
+                if (tLSPLT.getText().length() != 0) {
+                    tLSPLI = Integer.parseInt(tLSPLT.getText());
+                    System.out.println("tLSPLI = " + tLSPLI);
+                }
 
             }
 
@@ -438,8 +454,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-                tLSLI = Integer.parseInt(tLSLT.getText());
-                System.out.println("tRSLI = " + tLSLI);
+                if (tLSLT.getText().length() != 0) {
+                    tLSLI = Integer.parseInt(tLSLT.getText());
+                    System.out.println("tRSLI = " + tLSLI);
+                }
 
             }
 
@@ -452,9 +470,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-
-                mLSPLI = Integer.parseInt(mLSPLT.getText());
-                System.out.println("mLSPLI = " + mLSPLI);
+                if (mLSPLT.getText().length() != 0) {
+                    mLSPLI = Integer.parseInt(mLSPLT.getText());
+                    System.out.println("mLSPLI = " + mLSPLI);
+                }
 
             }
 
@@ -467,9 +486,10 @@ public class Main extends JFrame {
 
             @Override
             public void focusLost(FocusEvent fe) {
-
-                mLSLI = Integer.parseInt(mLSLT.getText());
-                System.out.println("mLSLI = " + mLSLI);
+                if (mLSLT.getText().length() != 0) {
+                    mLSLI = Integer.parseInt(mLSLT.getText());
+                    System.out.println("mLSLI = " + mLSLI);
+                }
 
             }
 
@@ -500,8 +520,6 @@ public class Main extends JFrame {
     public void setOwnReference(Main ownReference) {
         this.ownReference = ownReference;
     }
-    
-    //public int[] getData
-            
 
+    //public int[] getData
 }
