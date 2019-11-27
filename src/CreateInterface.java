@@ -55,6 +55,7 @@ public class CreateInterface extends JFrame {
     private JTextField visitNumberField;
     private String comment;
     private int instrumentModel;
+    private JComboBox<String> fu;
 //	private VisitMain vm;
 
     private String newTHC;
@@ -147,14 +148,14 @@ public class CreateInterface extends JFrame {
                         if (rs.next() && rs.getString("id") == null) {
                             visitIDField.setText("1");
                         } else {
-                            visitIDField.setText(Integer.toString(rs.getInt("id")) + 1);
+                            visitIDField.setText(Integer.toString(rs.getInt("id") + 1));
                         }
 
                         rs = stmt.executeQuery("select max(visit_nr) as nr from visit where date = '" + LocalDate.now().toString() + "'");
                         if (rs.next() && rs.getString("nr") == null) {
                             visitNumberField.setText("1");
                         } else {
-                            visitNumberField.setText(Integer.toString(rs.getInt("id")) + 1);
+                            visitNumberField.setText(Integer.toString(rs.getInt("nr") + 1));
                         }
 
                     } catch (SQLException e1) {
@@ -217,6 +218,8 @@ public class CreateInterface extends JFrame {
         ins = new JComboBox<String>(new String[]{"V", "GS", "GH", "HA", ""});
         JLabel remLabel = new JLabel("REM");
         rem = new JCheckBox();
+        JLabel follow = new JLabel("FU: ");
+        fu = new JComboBox<String>(new String[] {"yes", "no"});
 
         middlePanel.add(categoryLabel);
         middlePanel.add(categoryField);
@@ -226,6 +229,8 @@ public class CreateInterface extends JFrame {
         middlePanel.add(instruCateField);
         middlePanel.add(remLabel);
         middlePanel.add(rem);
+        middlePanel.add(follow);
+        middlePanel.add(fu);
     }
 
     private void createOtherButtons() {
