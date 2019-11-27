@@ -37,6 +37,8 @@ public class Main extends JFrame {
 
     final Container contentPane = getContentPane();
 
+    private CreateInterface createReference;
+
     public static void main(String[] args) throws SQLException {
 
         String thc = "1";
@@ -89,8 +91,11 @@ public class Main extends JFrame {
         JTextField typeField = new JTextField();
         typeField.setEditable(false);
 
+        //connection
+        //conn = DriverManager.getConnection(
+        //        "jdbc:mysql://localhost:3306/mydb", "root", "1486630878Su");
         conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC", "shuangpan", "FEIfei5217?");
+                "jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC","shuangpan", "FEIfei5217?");
         stmt = conn.createStatement();
 
         ResultSet rs = stmt.executeQuery("select* from patient where"
@@ -163,6 +168,9 @@ public class Main extends JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                createReference.setREMData(freqREI, tRSI, mRSI, tRSPLI,
+                        tRSLI, mRSPLI, mRSLI, freqLEI, tLSI, mLSI, tLSPLI, 
+                        tLSLI, mLSPLI, mLSLI);
                 ownReference.dispose();
             }
 
@@ -171,21 +179,6 @@ public class Main extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                freqREI = 0;
-                tRSI = 0;
-                mRSI = 0;
-                tRSPLI = 0;
-                tRSLI = 0;
-                mRSPLI = 0;
-                mRSLI = 0;
-
-                freqLEI = 0;
-                tLSI = 0;
-                mLSI = 0;
-                tLSPLI = 0;
-                tLSLI = 0;
-                mLSPLI = 0;
-                mLSLI = 0;
                 ownReference.dispose();
             }
 
@@ -500,8 +493,15 @@ public class Main extends JFrame {
 
     }
 
-    public void setOwnReference(Main reference) {
-        this.ownReference = reference;
+    public void setCreateReference(CreateInterface refer) {
+        this.createReference = refer;
     }
+
+    public void setOwnReference(Main ownReference) {
+        this.ownReference = ownReference;
+    }
+    
+    //public int[] getData
+            
 
 }

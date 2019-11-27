@@ -59,6 +59,9 @@ public class CreateInterface extends JFrame {
 
     private String newTHC;
 
+    private int freqREI, tRSI, mRSI, tRSPLI, tRSLI, mRSPLI, mRSLI;
+    private int freqLEI, tLSI, mLSI, tLSPLI, tLSLI, mLSPLI, mLSLI;
+    
     public CreateInterface() throws SQLException {
         connectToDataBase();
 
@@ -87,7 +90,8 @@ public class CreateInterface extends JFrame {
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
         // Connect to the database
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC", "shuangpan", "FEIfei5217?");
+        conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC","shuangpan", "FEIfei5217?");
         
         // Create a Statement
         stmt = conn.createStatement();
@@ -246,6 +250,8 @@ public class CreateInterface extends JFrame {
                 try {
                     Main newREM = new Main(newTHC);
                     newREM.setOwnReference(newREM);
+                    newREM.setCreateReference(ownReference);                    
+                   
                 } catch (SQLException ex) {
                     Logger.getLogger(CreateInterface.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -275,6 +281,9 @@ public class CreateInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ownReference.dispose();
+                System.out.println("" + freqREI + tRSI + mRSI + tRSPLI
+                    + tRSLI + mRSPLI + mRSLI + freqLEI + tLSI + mLSI
+                    + tLSPLI + tLSLI + mLSPLI + mLSLI);
             }
 
         });
@@ -301,5 +310,26 @@ public class CreateInterface extends JFrame {
         this.instrumentModel = instrumentModel;
         this.comment = comment;
         System.out.println(this.instrumentModel + " " + comment);
+    }
+    
+    public void setREMData(int a, int b, int c, int d, 
+            int e, int f, int g, int h, int i, 
+            int j, int k, int l, int m, int n) {
+        this.freqREI = a;
+        this.tRSI = b;
+        this.mRSI = c;
+        this.tRSPLI = d;
+        this.tRSLI = e;
+        this.mRSPLI = f;
+        this.mRSLI = g;
+
+        this.freqLEI = h;
+        this.tLSI = i;
+        this.mLSI = j;
+        this.tLSPLI = k;
+        this.tLSLI = l;
+        this.mLSPLI = m;
+        this.mLSLI = n;        
+        
     }
 }
