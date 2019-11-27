@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`COUNSELING` (
 
 -- -----------------------------------------------------
 -- Table `mydb`.`REM`
--- -----------------------------------------------------
+-- -------------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`REM` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`REM` (

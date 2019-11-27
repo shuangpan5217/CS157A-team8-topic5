@@ -91,7 +91,7 @@ public class SQLLoader
 
 
 
-			"insert into INSTRUMENT values(1,'this is an instrument for patient testonee', 8, 9, 4 , 13, 1, 'earpiece')",
+			"insert into INSTRUMENT values(1,'this is an instrument for patient testonee', 8, 9, 4 , 13, 1, 'ear piece')",
 			"insert into INSTRUMENT values(2, 'this is an instrument for patient testtwo ',  7, 11 ,5 , 12, 2 , 'hearing aid')",
 			"insert into INSTRUMENT values(3, 'this is an instrument for patient testthree ', 7, 12 , 6 , 1, 3, 'hearing aid v2')",
 
