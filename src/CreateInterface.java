@@ -24,6 +24,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,10 +54,17 @@ public class CreateInterface extends JFrame {
     private JPanel lowerPanel;
     private JComboBox<Integer> instruCateField;
     private JTextField visitNumberField;
+    private JComboBox<String> fu;
+    private Random random;
+//	private VisitMain vm;
+    
+    private JTextField visitIDField;
+    
     private String comment;
     private int instrumentModel;
-    private JComboBox<String> fu;
-//	private VisitMain vm;
+	private String categoryName, categoryDescription;
+	private int typeID; private String typeDescription;
+	private String modelName, modelDescription;
 
     private String newTHC;
     private String visitID;
@@ -108,7 +116,7 @@ public class CreateInterface extends JFrame {
         visitPanel.setBorder(blackline);
 
         JLabel visitIDLabel = new JLabel("Visit ID: ");
-        JTextField visitIDField = new JTextField(6);
+        visitIDField = new JTextField(6);
         visitIDField.setEditable(false);
 
         JLabel dateLabel = new JLabel("Date: ");
@@ -298,6 +306,70 @@ public class CreateInterface extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+            	int visitID = Integer.parseInt(visitIDField.getText());
+            	String now = LocalDate.now().toString();
+            	int visitNumber = Integer.parseInt(visitNumberField.getText());
+            	int patientCategory = (int) categoryField.getSelectedItem();
+            	String insType = (String) ins.getSelectedItem();
+            	int insCate = (int) instruCateField.getSelectedItem();
+            	String follow = (String) fu.getSelectedItem();
+            	
+            	/*
+                private String comment;
+                private int instrumentModel;
+            	private String categoryName, categoryDescription;
+            	private String typeName, typeDescription;
+            	private String modelName, modelDescription;
+
+                private String newTHC;
+                private String visitID;
+
+                private int freqREI, tRSI, mRSI, tRSPLI, tRSLI, mRSPLI, mRSLI;
+                private int freqLEI, tLSI, mLSI, tLSPLI, tLSLI, mLSPLI, mLSLI;
+
+                private String counselingComment;*/
+            	
+            	try {
+            		random = new Random();
+					int x = random.nextInt(1000);
+					int y = random.nextInt(1000);
+					int z = random.nextInt(1000);
+					int a = random.nextInt(1000);
+					int b = random.nextInt(1000);
+					int c = random.nextInt(1000);
+					int d = random.nextInt(1000);
+					char q = (char)(65 + random.nextInt(60));
+					stmt.executeUpdate("insert into instrument_model values(" + instrumentModel + ", '" + modelName + "', '" + modelDescription + "')");
+					stmt.executeUpdate("insert into instrument_category values(" + insCate + ", '" + categoryName + "', '" + categoryDescription + "')");
+					stmt.executeUpdate("insert into instrument_types values(" + typeID + ", '" + insType + "', '" + typeDescription + "'" + ", " + insCate + ")");
+					stmt.executeUpdate("insert into visit values(" + visitID + ", " + visitNumber + ", '" + now + "', '" + commentArea.getText() + "', " + 
+					Integer.parseInt(THCField.getText()) + ", '" + follow + "')");
+					stmt.executeUpdate("insert into counseling values (" + x + ", '" + q + "', '" + counselingComment + "', " + visitID + ")");
+					stmt.executeUpdate("insert into instrument values(" + a + ", '" + comment + "', " + insCate + ", " + instrumentModel + ", " + typeID + ", " + 
+					visitID + ", " + Integer.parseInt(THCField.getText()) + ", " + "'ear piece')");
+					stmt.executeUpdate("insert into rem values(" + random.nextInt(10) + ", 'no comment', " + freqREI + ", " + tRSI + ", " + 
+					mRSI + ", " + tRSPLI + ", " + tRSLI + ", " + mRSPLI + ", " + mRSLI + ", " + freqLEI + ", " + 
+							tLSI + ", " + mLSI + ", " + tLSPLI + ", " + tLSLI + ", " + mLSPLI + ", " + mLSLI + ", " + y + ", " + z + ", " + a + ", " + visitID + ")");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	
+            	/*
+    			"insert into INSTRUMENT_MODEL values (9,'model1','onemodeltest')",
+
+    			"insert into INSTRUMENT_CATEGORY values (8,'ca','onemcategory test')",
+
+    			"insert into INSTRUMENT_TYPES values (4,'ca','this is onemcategory test', 8)",
+
+    			"insert into VISIT values (13, 1, '2019-05-09','this is the first visit of patient testone', 1,'no')",
+
+    			"insert into COUNSELING values(123, '1', 'patient testone counsel', 13)",
+
+    			"insert into INSTRUMENT values(1,'this is an instrument for patient testonee', 8, 9, 4 , 13, 1, 'ear piece')",
+
+    			"insert into REM values(987, 'this is testone REM', 1.1 ,2.1 ,3.1,4.1 ,5.1 ,6.1 ,7.1, 8.1 ,9.1 ,10.1 ,11.1 ,12.1, 13.1 , 14.1 ,15.1 ,16.1 , 1, 13)",
+            	*/
                 ownReference.dispose();
 
                 //
@@ -328,10 +400,22 @@ public class CreateInterface extends JFrame {
         this.ownReference = reference;
     }
 
-    public void setInstrumentData(String comment, int instrumentModel) {
+    public void setInstrumentData(String comment, int instrumentModel,
+    		String categoryName, String categoryDescription,
+    		int typeID, String typeDescription, 
+    		String modelName, String modelDescription) {
+    	
         this.instrumentModel = instrumentModel;
         this.comment = comment;
-        System.out.println(this.instrumentModel + " " + comment);
+        
+        this.categoryName = categoryName;
+        this.categoryDescription = categoryDescription;
+        
+        this.typeID = typeID;
+        this.typeDescription = typeDescription;
+        
+        this.modelName = modelName;
+        this.modelDescription = modelDescription;
     }
 
     public void setREMData(int a, int b, int c, int d,

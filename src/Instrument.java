@@ -41,6 +41,24 @@
 		private int model; 
 		private String comment;
 		private CreateInterface createReference;
+		private JPanel categoryPanel;
+		private JPanel modelPanel;
+		private JPanel typePanel;
+		private String categoryName;
+		private String categoryDescription;
+		private int typeID;
+		private String typeDescription;
+		private String modelName;
+		private String modelDescription;
+
+		JTextField cn;
+		JTextField cnDescription;
+		
+		JComboBox<Integer> tn;
+		JTextField tnDescription;
+		
+		JTextField mn = new JTextField(10);
+		JTextField mnDescription = new JTextField(15);
 
 
 		public Instrument() {
@@ -51,6 +69,9 @@
 
 			add(upperPanel);
 			add(mainPanel);
+			add(categoryPanel);
+			add(modelPanel);
+			add(typePanel);
 			add(visitPanel);
 
 			setTitle("Instrument Details");
@@ -118,6 +139,9 @@
 		private void MainPanel() {
 
 			mainPanel = new JPanel();
+			categoryPanel = new JPanel();
+			typePanel = new JPanel();
+			modelPanel = new JPanel();
 
 
 			JLabel instrModelLabel = new JLabel("Instrument Model: ");
@@ -125,19 +149,48 @@
 			Integer modelNumber[]= {1,2, 3,4};
 			instrModelCombo = new JComboBox<Integer>(modelNumber);
 
-			JLabel commentsLabel = new JLabel("Additional Comments About the Instrument: ");
+			JLabel commentsLabel = new JLabel("Instrument comments: ");
 			addComments = new JTextField(20); 
 			addComments.setEditable(true);
+			
+			JLabel categoryName = new JLabel("Category Name: ");
+			cn = new JTextField(10);
+			JLabel cnDesLabel = new JLabel("Category description: ");
+			cnDescription = new JTextField(15);
+			
+			JLabel typeName = new JLabel("Type ID: ");
+			tn = new JComboBox<Integer>(new Integer[]{1, 2, 3, 4, 5, 6, 7 ,8 ,9, 10}); 
+			JLabel tnDesLabel = new JLabel("Type description: ");
+			tnDescription = new JTextField(15);
+			
+			JLabel modelName = new JLabel("Model Name: ");
+			mn = new JTextField(10);
+			JLabel mnDesLabel = new JLabel("Model description: ");
+			mnDescription = new JTextField(15);
 
-			mainPanel.add(instrModelLabel);
-			mainPanel.add(instrModelCombo);
 			mainPanel.add(commentsLabel);
 			mainPanel.add(addComments);
+			
+			categoryPanel.add(categoryName);
+			categoryPanel.add(cn);
+			categoryPanel.add(cnDesLabel);
+			categoryPanel.add(cnDescription);
+			typePanel.add(typeName);
+			typePanel.add(tn);
+			typePanel.add(tnDesLabel);
+			typePanel.add(tnDescription);
+			modelPanel.add(instrModelLabel);
+			modelPanel.add(instrModelCombo);
+			modelPanel.add(modelName);
+			modelPanel.add(mn);
+			modelPanel.add(mnDesLabel);
+			modelPanel.add(mnDescription);
 			saveButton();
 			cancelButton();
 
 		}
 
+		/*
 		private void connectToDataBase() throws SQLException {
 			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
@@ -148,7 +201,7 @@
 			stmt = conn.createStatement ();
 		}
 
-
+	*/
 		// take back to add/edit patient interface
 		public void cancelButton() {
 
@@ -174,8 +227,15 @@
 				public void actionPerformed(ActionEvent e) {
 					model = (int) instrModelCombo.getSelectedItem();
 					comment = addComments.getText();
-					System.out.println(addComments.getText());
-					createReference.setInstrumentData(comment, model);
+					categoryName = cn.getText();
+					categoryDescription = cnDescription.getText();
+					typeID = (int) tn.getSelectedItem();
+					typeDescription = tnDescription.getText();
+					modelName = mn.getText();
+					modelDescription = mnDescription.getText();
+					
+					createReference.setInstrumentData(comment, model, categoryName, categoryDescription,typeID,
+							typeDescription, modelName, modelDescription);
 					ownReference.dispose();
 				}
 				});

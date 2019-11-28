@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -37,6 +38,7 @@ public class ViewEditVisit extends JFrame{
 	private JPanel filterByPatientPanel;
 	private JComboBox<String> sortTableBy;
 	private JPanel sort;
+	private JScrollPane scroll;
 	public ViewEditVisit() throws SQLException { 
 		connectToDataBase();
 		createTablePanel();
@@ -70,31 +72,50 @@ public class ViewEditVisit extends JFrame{
 	
 	private void createTablePanel() throws SQLException {
 		tablePanel = new JPanel();
-		
         stmt = (Statement) conn.createStatement();
-        String query = "select thc, first_name, last_name\n" + 
-        		"from patient";
+        String query = "select visit_id as ID, date as Date, concat(first_name, " + "' '" + ", last_name) as Patient, visit_nr as "
+        		+ "Visit, instrument_types.name as Instr, rem_id as REM,"
+        		+ " followupvisit_type as FU, visit.comments as Comments "
+        		+ "from patient, visit, REM, instrument, instrument_types, instrument_model "
+        		
+        		+ "where patient.THC = visit.patient_thc and "
+        		
+        		+ "rem.VISIT_Visit_ID = instrument.VISIT_Visit_ID and rem.visit_visit_id = visit_id and rem.instrument_instr_id = instrument.instr_id and "
+        		
+        		+ "instrument.VISIT_Visit_ID = visit_id and `instrument model_im_id` = im_id and `instrument types_it_id` = it_id and instrument.visit_patient_thc "
+        		+ "= patient_thc";
+        		
+        		
+        		
+        //		+ "and `instrument category_ic_id` = ic_id`";
         ResultSet rs = stmt.executeQuery(query);
 
         rs.beforeFirst();
         
-        String[] columnNames = {"THC", "LAST NAME", "FIRST NAME"};
+        String[] columnNames = {"ID", "Date", "Patient", "Visit", "Instr", "REM", "FU", "Comments"};
         tableModel = new DefaultTableModel(columnNames, 0);
 
         while (rs.next()) {
-            Integer thc = rs.getInt("THC");
-            String ln = rs.getString("last_name");
-            String fn = rs.getString("first_name");
+        	
+            Integer id = rs.getInt(1);
+            String date = rs.getString(2);
+            String Patient = rs.getString(3);
+            Integer visit_nr = rs.getInt(4);
+            String instr = rs.getString(5);
+            Integer rem_id = rs.getInt(6);
+            String fu = rs.getString(7);
+            String comment = rs.getString(8);
 
-            String[] data = {Integer.toString(thc), ln, fn} ;
+            String[] data = {Integer.toString(id), date, Patient, Integer.toString(visit_nr), instr, Integer.toString(rem_id), fu, comment} ;
 
             // and add this row of data into the table model
             tableModel.addRow(data);
         }
         jtable = new JTable(tableModel);
         jtable.setGridColor(Color.BLACK);
+        jtable.setPreferredScrollableViewportSize(new Dimension(1500, 500));
  //       jtable.setShowGrid(true);
-        JScrollPane scroll = new JScrollPane(jtable);
+        scroll = new JScrollPane(jtable);
         tablePanel.add(scroll);
     }
 	
@@ -114,16 +135,154 @@ public class ViewEditVisit extends JFrame{
 				String item = (String) sortTableBy.getSelectedItem();
 				try {
 					if(item.equals("Visit ID")) {
-			        	String query = "select * from patient order by Visit_ID";
-						ResultSet rs = stmt.executeQuery(query);
+						tablePanel.remove(scroll);
+						
+				        stmt = (Statement) conn.createStatement();
+				        String query = "select visit_id as ID, date as Date, concat(first_name, " + "' '" + ", last_name) as Patient, visit_nr as "
+				        		+ "Visit, instrument_types.name as Instr, rem_id as REM,"
+				        		+ " followupvisit_type as FU, visit.comments as Comments "
+				        		+ "from patient, visit, REM, instrument, instrument_types, instrument_model "
+				        		
+				        		+ "where patient.THC = visit.patient_thc and "
+				        		
+				        		+ "rem.VISIT_Visit_ID = instrument.VISIT_Visit_ID and rem.visit_visit_id = visit_id and rem.instrument_instr_id = instrument.instr_id and "
+				        		
+				        		+ "instrument.VISIT_Visit_ID = visit_id and `instrument model_im_id` = im_id and `instrument types_it_id` = it_id and instrument.visit_patient_thc "
+				        		+ "= patient_thc order by ID";
+				        		
+				        		
+				        		
+				        //		+ "and `instrument category_ic_id` = ic_id`";
+				        ResultSet rs = stmt.executeQuery(query);
+
+				        rs.beforeFirst();
+				        
+				        String[] columnNames = {"ID", "Date", "Patient", "Visit", "Instr", "REM", "FU", "Comments"};
+				        tableModel = new DefaultTableModel(columnNames, 0);
+
+				        while (rs.next()) {
+				        	
+				            Integer id = rs.getInt(1);
+				            String date = rs.getString(2);
+				            String Patient = rs.getString(3);
+				            Integer visit_nr = rs.getInt(4);
+				            String instr = rs.getString(5);
+				            Integer rem_id = rs.getInt(6);
+				            String fu = rs.getString(7);
+				            String comment = rs.getString(8);
+
+				            String[] data = {Integer.toString(id), date, Patient, Integer.toString(visit_nr), instr, Integer.toString(rem_id), fu, comment} ;
+
+				            // and add this row of data into the table model
+				            tableModel.addRow(data);
+				        }
+				        jtable = new JTable(tableModel);
+				        jtable.setGridColor(Color.BLACK);
+				        jtable.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+				 //       jtable.setShowGrid(true);
+				        scroll = new JScrollPane(jtable);
+				        tablePanel.add(scroll);
+				        tablePanel.revalidate();
 					}
 					else if(item.equals("Date")) {
-			        	String query = "select * from patient order by date";
-						ResultSet rs = stmt.executeQuery(query);
+						tablePanel.remove(scroll);
+						
+				        stmt = (Statement) conn.createStatement();
+				        String query = "select visit_id as ID, date as Date, concat(first_name, " + "' '" + ", last_name) as Patient, visit_nr as "
+				        		+ "Visit, instrument_types.name as Instr, rem_id as REM,"
+				        		+ " followupvisit_type as FU, visit.comments as Comments "
+				        		+ "from patient, visit, REM, instrument, instrument_types, instrument_model "
+				        		
+				        		+ "where patient.THC = visit.patient_thc and "
+				        		
+				        		+ "rem.VISIT_Visit_ID = instrument.VISIT_Visit_ID and rem.visit_visit_id = visit_id and rem.instrument_instr_id = instrument.instr_id and "
+				        		
+				        		+ "instrument.VISIT_Visit_ID = visit_id and `instrument model_im_id` = im_id and `instrument types_it_id` = it_id and instrument.visit_patient_thc "
+				        		+ "= patient_thc order by Date";
+				        		
+				        		
+				        		
+				        //		+ "and `instrument category_ic_id` = ic_id`";
+				        ResultSet rs = stmt.executeQuery(query);
+
+				        rs.beforeFirst();
+				        
+				        String[] columnNames = {"ID", "Date", "Patient", "Visit", "Instr", "REM", "FU", "Comments"};
+				        tableModel = new DefaultTableModel(columnNames, 0);
+
+				        while (rs.next()) {
+				        	
+				            Integer id = rs.getInt(1);
+				            String date = rs.getString(2);
+				            String Patient = rs.getString(3);
+				            Integer visit_nr = rs.getInt(4);
+				            String instr = rs.getString(5);
+				            Integer rem_id = rs.getInt(6);
+				            String fu = rs.getString(7);
+				            String comment = rs.getString(8);
+
+				            String[] data = {Integer.toString(id), date, Patient, Integer.toString(visit_nr), instr, Integer.toString(rem_id), fu, comment} ;
+
+				            // and add this row of data into the table model
+				            tableModel.addRow(data);
+				        }
+				        jtable = new JTable(tableModel);
+				        jtable.setGridColor(Color.BLACK);
+				        jtable.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+				 //       jtable.setShowGrid(true);
+				        scroll = new JScrollPane(jtable);
+				        tablePanel.add(scroll);
+				        tablePanel.revalidate();
 					}
 					else {
-			        	String query = "select * from patient order by instrument_type.name";
-						ResultSet rs = stmt.executeQuery(query);
+						tablePanel.remove(scroll);
+						
+				        stmt = (Statement) conn.createStatement();
+				        String query = "select visit_id as ID, date as Date, concat(first_name, " + "' '" + ", last_name) as Patient, visit_nr as "
+				        		+ "Visit, instrument_types.name as Instr, rem_id as REM,"
+				        		+ " followupvisit_type as FU, visit.comments as Comments "
+				        		+ "from patient, visit, REM, instrument, instrument_types, instrument_model "
+				        		
+				        		+ "where patient.THC = visit.patient_thc and "
+				        		
+				        		+ "rem.VISIT_Visit_ID = instrument.VISIT_Visit_ID and rem.visit_visit_id = visit_id and rem.instrument_instr_id = instrument.instr_id and "
+				        		
+				        		+ "instrument.VISIT_Visit_ID = visit_id and `instrument model_im_id` = im_id and `instrument types_it_id` = it_id and instrument.visit_patient_thc "
+				        		+ "= patient_thc order by Instr";
+				        		
+				        		
+				        		
+				        //		+ "and `instrument category_ic_id` = ic_id`";
+				        ResultSet rs = stmt.executeQuery(query);
+
+				        rs.beforeFirst();
+				        
+				        String[] columnNames = {"ID", "Date", "Patient", "Visit", "Instr", "REM", "FU", "Comments"};
+				        tableModel = new DefaultTableModel(columnNames, 0);
+
+				        while (rs.next()) {
+				        	
+				            Integer id = rs.getInt(1);
+				            String date = rs.getString(2);
+				            String Patient = rs.getString(3);
+				            Integer visit_nr = rs.getInt(4);
+				            String instr = rs.getString(5);
+				            Integer rem_id = rs.getInt(6);
+				            String fu = rs.getString(7);
+				            String comment = rs.getString(8);
+
+				            String[] data = {Integer.toString(id), date, Patient, Integer.toString(visit_nr), instr, Integer.toString(rem_id), fu, comment} ;
+
+				            // and add this row of data into the table model
+				            tableModel.addRow(data);
+				        }
+				        jtable = new JTable(tableModel);
+				        jtable.setGridColor(Color.BLACK);
+				        jtable.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+				 //       jtable.setShowGrid(true);
+				        scroll = new JScrollPane(jtable);
+				        tablePanel.add(scroll);
+				        tablePanel.revalidate();
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -157,11 +316,54 @@ public class ViewEditVisit extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		        try {
-		//        	System.out.println(filterDate.getText());
-		        	String query = "select * from patient " 
-			        		+ "where Date(date) = " + "'" +filterDate.getText() + "'";
-					ResultSet rs = stmt.executeQuery(query);
-					//to be done
+					tablePanel.remove(scroll);
+					
+			        stmt = (Statement) conn.createStatement();
+			        String query = "select visit_id as ID, date as Date, concat(first_name, " + "' '" + ", last_name) as Patient, visit_nr as "
+			        		+ "Visit, instrument_types.name as Instr, rem_id as REM,"
+			        		+ " followupvisit_type as FU, visit.comments as Comments "
+			        		+ "from patient, visit, REM, instrument, instrument_types, instrument_model "
+			        		
+			        		+ "where patient.THC = visit.patient_thc and "
+			        		
+			        		+ "rem.VISIT_Visit_ID = instrument.VISIT_Visit_ID and rem.visit_visit_id = visit_id and rem.instrument_instr_id = instrument.instr_id and "
+			        		
+			        		+ "instrument.VISIT_Visit_ID = visit_id and `instrument model_im_id` = im_id and `instrument types_it_id` = it_id and instrument.visit_patient_thc "
+			        		+ "= patient_thc and Date = " + "'" + filterDate.getText() +"'";
+			        		
+			        		
+			        		
+			        //		+ "and `instrument category_ic_id` = ic_id`";
+			        ResultSet rs = stmt.executeQuery(query);
+
+			        rs.beforeFirst();
+			        
+			        String[] columnNames = {"ID", "Date", "Patient", "Visit", "Instr", "REM", "FU", "Comments"};
+			        tableModel = new DefaultTableModel(columnNames, 0);
+
+			        while (rs.next()) {
+			        	
+			            Integer id = rs.getInt(1);
+			            String date = rs.getString(2);
+			            String Patient = rs.getString(3);
+			            Integer visit_nr = rs.getInt(4);
+			            String instr = rs.getString(5);
+			            Integer rem_id = rs.getInt(6);
+			            String fu = rs.getString(7);
+			            String comment = rs.getString(8);
+
+			            String[] data = {Integer.toString(id), date, Patient, Integer.toString(visit_nr), instr, Integer.toString(rem_id), fu, comment} ;
+
+			            // and add this row of data into the table model
+			            tableModel.addRow(data);
+			        }
+			        jtable = new JTable(tableModel);
+			        jtable.setGridColor(Color.BLACK);
+			        jtable.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+			 //       jtable.setShowGrid(true);
+			        scroll = new JScrollPane(jtable);
+			        tablePanel.add(scroll);
+			        tablePanel.revalidate();
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -181,10 +383,54 @@ public class ViewEditVisit extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		        try {
-		        	String query = "select * from patient " 
-			        		+ " where last_name = " + "'" +
-		        			lastName.getText() + "' and" + " first_name = " + "'" + firstName.getText() + "'";
-					ResultSet st = stmt.executeQuery(query);
+					tablePanel.remove(scroll);
+					
+			        stmt = (Statement) conn.createStatement();
+			        String query = "select visit_id as ID, date as Date, concat(first_name, " + "' '" + ", last_name) as Patient, visit_nr as "
+			        		+ "Visit, instrument_types.name as Instr, rem_id as REM,"
+			        		+ " followupvisit_type as FU, visit.comments as Comments "
+			        		+ "from patient, visit, REM, instrument, instrument_types, instrument_model "
+			        		
+			        		+ "where patient.THC = visit.patient_thc and "
+			        		
+			        		+ "rem.VISIT_Visit_ID = instrument.VISIT_Visit_ID and rem.visit_visit_id = visit_id and rem.instrument_instr_id = instrument.instr_id and "
+			        		
+			        		+ "instrument.VISIT_Visit_ID = visit_id and `instrument model_im_id` = im_id and `instrument types_it_id` = it_id and instrument.visit_patient_thc "
+			        		+ "= patient_thc and first_name = " + "'"+ firstName.getText() +"' and last_name = " + "'" + lastName.getText() +"'";
+			        		
+			        		
+			        		
+			        //		+ "and `instrument category_ic_id` = ic_id`";
+			        ResultSet rs = stmt.executeQuery(query);
+
+			        rs.beforeFirst();
+			        
+			        String[] columnNames = {"ID", "Date", "Patient", "Visit", "Instr", "REM", "FU", "Comments"};
+			        tableModel = new DefaultTableModel(columnNames, 0);
+
+			        while (rs.next()) {
+			        	
+			            Integer id = rs.getInt(1);
+			            String date = rs.getString(2);
+			            String Patient = rs.getString(3);
+			            Integer visit_nr = rs.getInt(4);
+			            String instr = rs.getString(5);
+			            Integer rem_id = rs.getInt(6);
+			            String fu = rs.getString(7);
+			            String comment = rs.getString(8);
+
+			            String[] data = {Integer.toString(id), date, Patient, Integer.toString(visit_nr), instr, Integer.toString(rem_id), fu, comment} ;
+
+			            // and add this row of data into the table model
+			            tableModel.addRow(data);
+			        }
+			        jtable = new JTable(tableModel);
+			        jtable.setGridColor(Color.BLACK);
+			        jtable.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+			 //       jtable.setShowGrid(true);
+			        scroll = new JScrollPane(jtable);
+			        tablePanel.add(scroll);
+			        tablePanel.revalidate();
 					//to be done
 				} catch (SQLException e1) {
 					e1.printStackTrace();
