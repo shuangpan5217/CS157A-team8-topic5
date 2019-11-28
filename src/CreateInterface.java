@@ -1,4 +1,4 @@
-
+  
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,21 +13,22 @@ import javax.swing.border.Border;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+
+/**
+ * A class to create the main interface of adding new visit
+ * @author shuangpan
+ *
+ */
 public class CreateInterface extends JFrame {
 
     /**
@@ -74,6 +75,10 @@ public class CreateInterface extends JFrame {
 
     private String counselingComment;
 
+    /**
+     * Constructor collect data from the frame
+     * @throws SQLException connect to database
+     */
     public CreateInterface() throws SQLException {
         connectToDataBase();
 
@@ -98,6 +103,10 @@ public class CreateInterface extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Connect to mysql database
+     * @throws SQLException sql exception
+     */
     private void connectToDataBase() throws SQLException {
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
@@ -110,6 +119,9 @@ public class CreateInterface extends JFrame {
         stmt = conn.createStatement();
     }
 
+    /**
+     * Create visit panel (upper panel)
+     */
     private void createVisitPanel() {
         visitPanel = new JPanel();
         Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -198,6 +210,9 @@ public class CreateInterface extends JFrame {
         visitPanel.add(visitNumberField);
     }
 
+    /**
+     * Create comment panel for comment in the visit
+     */
     private void createCommentsArea() {
         commentPanel = new JPanel();
         Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -215,6 +230,10 @@ public class CreateInterface extends JFrame {
 	public void setVM(VisitMain vm) {
 		this.vm = vm;
 	}
+     */
+    
+    /**
+     * Crate the middle panel for category, type and other information
      */
     private void createMiddlePanel() {
         middlePanel = new JPanel();
@@ -244,6 +263,9 @@ public class CreateInterface extends JFrame {
         middlePanel.add(fu);
     }
 
+    /**
+     * Create other buttons to add other information including instrument, rem and couunseling.
+     */
     private void createOtherButtons() {
         others = new JPanel();
         instrument = new JButton("Instrument Details");
@@ -299,6 +321,9 @@ public class CreateInterface extends JFrame {
         others.add(counsel);
     }
 
+    /**
+     * Create save and canel button
+     */
     public void createLowerPanel() {
         lowerPanel = new JPanel();
         JButton saveButton = new JButton("Save");
@@ -330,6 +355,7 @@ public class CreateInterface extends JFrame {
                 private String counselingComment;*/
             	
             	try {
+            		// insert all data to the database
             		random = new Random();
 					int x = random.nextInt(1000);
 					int y = random.nextInt(1000);
@@ -396,10 +422,25 @@ public class CreateInterface extends JFrame {
         lowerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
     }
 
+    /**
+     * get own reference for disposal
+     * @param reference
+     */
     public void setOwnReference(CreateInterface reference) {
         this.ownReference = reference;
     }
 
+    /**
+     * Get all data from instrument details
+     * @param comment instrument comment
+     * @param instrumentModel instrument model
+     * @param categoryName instrument category name
+     * @param categoryDescription instrument category description
+     * @param typeID instrument type ID
+     * @param typeDescription instrument type description
+     * @param modelName instrument model name
+     * @param modelDescription instrument model description
+     */
     public void setInstrumentData(String comment, int instrumentModel,
     		String categoryName, String categoryDescription,
     		int typeID, String typeDescription, 
@@ -418,6 +459,23 @@ public class CreateInterface extends JFrame {
         this.modelDescription = modelDescription;
     }
 
+    /**
+     * Get all information from REM
+     * @param a freqREI
+     * @param b mRSI
+     * @param c tRSI
+     * @param d tRSPLI
+     * @param e tRSLI
+     * @param f mRSPLI
+     * @param g mRSLI
+     * @param h freqLEI
+     * @param i tLSI
+     * @param j mLSI
+     * @param k tLSPLI
+     * @param l tLSLI
+     * @param m mLSPLI
+     * @param n  mLSLI
+     */
     public void setREMData(int a, int b, int c, int d,
             int e, int f, int g, int h, int i,
             int j, int k, int l, int m, int n) {
@@ -439,6 +497,10 @@ public class CreateInterface extends JFrame {
 
     }
 
+    /**
+     * Get comment from counseling
+     * @param comment counseling comment
+     */
     public void setCounselingComment(String comment) {
         this.counselingComment = comment;
     }

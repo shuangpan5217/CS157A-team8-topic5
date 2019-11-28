@@ -1,4 +1,4 @@
-
+  
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -24,6 +24,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 
+/**
+ * A class to add the counseling information
+ * @author chunyou su
+ *
+ */
 public class Counseling extends JFrame {
 
     /**
@@ -38,10 +43,21 @@ public class Counseling extends JFrame {
 
     final Container contentPane = getContentPane();
 
+    /**
+     * Constructor to collect data
+     */
     public Counseling() {
 
     }
 
+    /**
+     * Add the inactive upper panel
+     * @param thc thc number
+     * @param name patient name
+     * @param vID Visit ID
+     * @param vDate date of today
+     * @param fuType follow up type
+     */
     public void clPanel(String thc, String name, String vID, 
             String vDate, String fuType) {
         clPanel = new JPanel();
@@ -103,6 +119,9 @@ public class Counseling extends JFrame {
 
     }
 
+    /**
+     * Add the detail text field of counseling.
+     */
     private void clMain() {
         clMain = new JPanel();
 
@@ -116,6 +135,9 @@ public class Counseling extends JFrame {
 
     }
 
+    /**
+     * Add the save and cancel button
+     */
     private void lowerPanel() {
         lowerPanel = new JPanel();
         JButton saveButton = new JButton("SAVE");
@@ -152,10 +174,18 @@ public class Counseling extends JFrame {
 
     }
 
+    /**
+     * Get the CreateInterface type interface to send back data.
+     * @param refer the CreateInterface type interface
+     */
     public void setCreateReference(CreateInterface refer) {
         this.createReference = refer;
     }
 
+    /**
+     * Get the own reference to dispose the frame
+     * @param ownReference own reference
+     */
     public void setOwnReference(Counseling ownReference) {
         this.ownReference = ownReference;
     }

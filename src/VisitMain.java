@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 /**
  * A class to build the main interface
  * @author shuangpan
- *
+ *  
  */
 public class VisitMain extends JFrame{
 	@SuppressWarnings("unused")

@@ -1,4 +1,4 @@
-
+  
 	import java.awt.Dimension;
 	import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
@@ -23,7 +23,11 @@
 	import java.time.LocalDate;
 	import javax.swing.JComboBox;
 
-
+/**
+ * Set the insgtrument interface
+ * @author shuangpan, Ren
+ *
+ */
 	public class Instrument extends JFrame {
 		private Connection conn;
 		private Statement stmt;
@@ -61,6 +65,9 @@
 		JTextField mnDescription = new JTextField(15);
 
 
+		/**
+		 * Collect all data and build the instrument interface.
+		 */
 		public Instrument() {
 			visitPanel = new JPanel();
 
@@ -81,6 +88,9 @@
 			setVisible(true);
 		}
 
+		/**
+		 * Build the inactive upper panel.
+		 */
 		private void UpperPanel() {
 			upperPanel = new JPanel();
 			Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -136,6 +146,9 @@
 			setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		}
 
+		/**
+		 * Build the main panel to hold other information.
+		 */
 		private void MainPanel() {
 
 			mainPanel = new JPanel();
@@ -203,6 +216,9 @@
 
 	*/
 		// take back to add/edit patient interface
+		/**
+		 * Create cancel button and don't save the data.
+		 */
 		public void cancelButton() {
 
 			JButton cancelButton = new JButton("Cancel");
@@ -216,6 +232,9 @@
 				}
 			});
 		}
+		/**
+		 * Get all input data and send back to the main interface
+		 */
 		public void saveButton() {
 
 			JButton saveButton = new JButton("Save");
@@ -241,16 +260,31 @@
 				});
 		}
 
+	/**
+	 * Get the own reference to disposal
+	 * @param ownReference own reference
+	 */
 	public void setOwnReference(Instrument ownReference) {
 		this.ownReference = ownReference;
 
 	}
 	
+	/**
+	 * Use it for sending back data
+	 * @param refer CreateInterface type reference
+	 */
 	public void setCreateReference(CreateInterface refer) {
 		this.createReference = refer;
 	}
 
-	
+	/**
+	 * set the information at the upper panel
+	 * @param firstName patient first name
+	 * @param lastName patient last name
+	 * @param thc patient's thc number
+	 * @param instrumentType instrument type
+	 * @param instrumentCate instrument category id
+	 */
 	public void setUpperPanel(String firstName, String lastName, int thc, String instrumentType, int instrumentCate) {
 		this.lastName.setText(lastName);
 		this.firstName.setText(firstName);
