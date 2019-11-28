@@ -38,83 +38,41 @@ public class Counseling extends JFrame {
 
     final Container contentPane = getContentPane();
 
-    public static void main(String[] args) {
-        new Counseling("1");
+    public Counseling() {
+
     }
 
-    public Counseling(String thc) {
-
-        try {
-            clPanel(thc);
-        } catch (SQLException ex) {
-            Logger.getLogger(Counseling.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        setPreferredSize(new Dimension(580, 680));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        pack();
-        setVisible(true);
-    }
-
-    private void clPanel(String thc) throws SQLException {
+    public void clPanel(String thc, String name, String vID, 
+            String vDate, String fuType) {
         clPanel = new JPanel();
         Border blackline = BorderFactory.createLineBorder(Color.black);
         clPanel.setBorder(blackline);
 
-        //connection
-        //Connection conn = DriverManager.getConnection(
-        //        "jdbc:mysql://localhost:3306/mydb", "root", "1486630878Su");
-        Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC","shuangpan", "FEIfei5217?");
-        Statement stmt = conn.createStatement();
 
         JLabel nameLabel = new JLabel("Patien Name: ");
         JTextField nameField = new JTextField();
+        nameField.setText(name);
         nameField.setEditable(false);
 
         JLabel dateLabel = new JLabel("Date: ");
         JTextField dateField = new JTextField();
+        dateField.setText(vDate);
         dateField.setEditable(false);
 
         JLabel THCLabel = new JLabel("THC#: ");
         JTextField THCField = new JTextField(6);
+        THCField.setText(thc);
         THCField.setEditable(false);
 
-        JLabel category = new JLabel("Patient Category: ");
+        JLabel category = new JLabel("Visit ID: ");
         JTextField categoryField = new JTextField();
+        categoryField.setText(vID);
         categoryField.setEditable(false);
 
         JLabel type = new JLabel("Follow-up(PU) Type: ");
         JTextField typeField = new JTextField();
+        typeField.setText(fuType);
         typeField.setEditable(false);
-
-        //
-        ResultSet rs = stmt.executeQuery("select* from patient where"
-                + " THC = " + thc + ";");
-
-        rs.next();
-
-        //
-        THCField.setText(thc);
-        categoryField.setText(String.valueOf(rs.getInt(4)));
-        nameField.setText(rs.getString(3) + " " + rs.getString(2));
-
-        rs = stmt.executeQuery("select DATE from visit where PATIENT_THC = "
-                + thc + ";");
-        rs.next();
-        dateField.setText(String.valueOf(rs.getDate(1)));
-        
-        rs = stmt.executeQuery("select VISIT_ID from visit where "
-                + "PATIENT_THC = " + thc + ";");
-        rs.next();
-        
-        int visitID = rs.getInt(1);
-        
-        rs = stmt.executeQuery("select TYPE from counseling where "
-                + "VISIT_Visit_ID = " + visitID + ";");
-        rs.next();
-        
-        typeField.setText(rs.getString(1));
 
         //
         clPanel.add(nameLabel);
@@ -137,6 +95,11 @@ public class Counseling extends JFrame {
         add(clPanel);
         add(clMain);
         add(lowerPanel);
+
+        setPreferredSize(new Dimension(600, 680));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        setVisible(true);
 
     }
 
@@ -170,6 +133,17 @@ public class Counseling extends JFrame {
                 ownReference.dispose();
             }
 
+        });
+        
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                detailText.setText("No Comment");
+                detail = detailText.getText();
+                createReference.setCounselingComment(detail);
+                ownReference.dispose();
+            }
+            
         });
 
         lowerPanel.add(saveButton);

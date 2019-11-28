@@ -59,12 +59,13 @@ public class CreateInterface extends JFrame {
 //	private VisitMain vm;
 
     private String newTHC;
+    private String visitID;
 
     private int freqREI, tRSI, mRSI, tRSPLI, tRSLI, mRSPLI, mRSLI;
     private int freqLEI, tLSI, mLSI, tLSPLI, tLSLI, mLSPLI, mLSLI;
-    
+
     private String counselingComment;
-    
+
     public CreateInterface() throws SQLException {
         connectToDataBase();
 
@@ -95,7 +96,8 @@ public class CreateInterface extends JFrame {
         // Connect to the database
         conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC","shuangpan", "FEIfei5217?");
-        
+        //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1486630878Su");
+
         // Create a Statement
         stmt = conn.createStatement();
     }
@@ -149,6 +151,7 @@ public class CreateInterface extends JFrame {
                             visitIDField.setText("1");
                         } else {
                             visitIDField.setText(Integer.toString(rs.getInt("id") + 1));
+                            visitID = visitIDField.getText();
                         }
 
                         rs = stmt.executeQuery("select max(visit_nr) as nr from visit where date = '" + LocalDate.now().toString() + "'");
@@ -219,7 +222,7 @@ public class CreateInterface extends JFrame {
         JLabel remLabel = new JLabel("REM");
         rem = new JCheckBox();
         JLabel follow = new JLabel("FU: ");
-        fu = new JComboBox<String>(new String[] {"yes", "no"});
+        fu = new JComboBox<String>(new String[]{"yes", "no"});
 
         middlePanel.add(categoryLabel);
         middlePanel.add(categoryField);
@@ -254,14 +257,15 @@ public class CreateInterface extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Main newREM = new Main(newTHC);
-                    newREM.setOwnReference(newREM);
-                    newREM.setCreateReference(ownReference);                    
-                   
-                } catch (SQLException ex) {
-                    Logger.getLogger(CreateInterface.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Main newREM = new Main();
+                newREM.setOwnReference(newREM);
+                newREM.setCreateReference(ownReference);
+                newREM.remPanel(newTHC.toString(),
+                        (firstNameField.getText() + " " 
+                                + lastNameField.getText()),
+                         LocalDate.now().toString(),
+                         categoryField.getSelectedItem().toString(),
+                         ins.getSelectedItem().toString());
             }
 
         });
@@ -270,9 +274,14 @@ public class CreateInterface extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Counseling newCounsel = new Counseling(newTHC);
+                Counseling newCounsel = new Counseling();
                 newCounsel.setOwnReference(newCounsel);
                 newCounsel.setCreateReference(ownReference);
+                newCounsel.clPanel(newTHC, (firstNameField.getText() + " "
+                        + lastNameField.getText()),
+                         visitID,
+                        LocalDate.now().toString(), 
+                        fu.getSelectedItem().toString());
             }
 
         });
@@ -290,11 +299,11 @@ public class CreateInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ownReference.dispose();
-                
+
                 //
                 System.out.println("" + freqREI + tRSI + mRSI + tRSPLI
-                    + tRSLI + mRSPLI + mRSLI + freqLEI + tLSI + mLSI
-                    + tLSPLI + tLSLI + mLSPLI + mLSLI);
+                        + tRSLI + mRSPLI + mRSLI + freqLEI + tLSI + mLSI
+                        + tLSPLI + tLSLI + mLSPLI + mLSLI);
                 //
                 System.out.println("Counseling comment = " + counselingComment);
             }
@@ -324,9 +333,9 @@ public class CreateInterface extends JFrame {
         this.comment = comment;
         System.out.println(this.instrumentModel + " " + comment);
     }
-    
-    public void setREMData(int a, int b, int c, int d, 
-            int e, int f, int g, int h, int i, 
+
+    public void setREMData(int a, int b, int c, int d,
+            int e, int f, int g, int h, int i,
             int j, int k, int l, int m, int n) {
         this.freqREI = a;
         this.tRSI = b;
@@ -342,10 +351,10 @@ public class CreateInterface extends JFrame {
         this.tLSPLI = k;
         this.tLSLI = l;
         this.mLSPLI = m;
-        this.mLSLI = n;        
-        
+        this.mLSLI = n;
+
     }
-    
+
     public void setCounselingComment(String comment) {
         this.counselingComment = comment;
     }

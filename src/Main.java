@@ -39,33 +39,14 @@ public class Main extends JFrame {
 
     private CreateInterface createReference;
 
-    public static void main(String[] args) throws SQLException {
 
-        String thc = "1";
-        new Main(thc);
-    }
+    public Main() {//throws SQLException {
 
-    public Main(String thc) throws SQLException {//throws SQLException {
-
-        remPanel(thc);
-
-        setPreferredSize(new Dimension(550, 680));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        pack();
-        setVisible(true);
 
     }
 
-    /*
-	private void connectToDataBase() throws SQLException {
-	    DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-	    // Connect to the database
-	    conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC","shuangpan", "FEIfei5217?"); 
-	    // Create a Statement
-	    stmt = conn.createStatement ();
-	}
-     */
-    private void remPanel(String thc) throws SQLException {
+    public void remPanel(String thc, String name, String date,
+            String pCat, String instT) {
         remPanel = new JPanel();
         Border blackline = BorderFactory.createLineBorder(Color.black);
         remPanel.setBorder(blackline);
@@ -73,57 +54,28 @@ public class Main extends JFrame {
         //SQLLoader connectToDatabase = new SQLLoader();
         JLabel nameLabel = new JLabel("Patien Name: ");
         JTextField nameField = new JTextField();
+        nameField.setText(name);
         nameField.setEditable(false);
 
         JLabel dateLabel = new JLabel("Date: ");
         JTextField dateField = new JTextField();
+        dateField.setText(date);
         dateField.setEditable(false);
 
         JLabel THCLabel = new JLabel("THC#: ");
         JTextField THCField = new JTextField(6);
+        THCField.setText(thc);
         THCField.setEditable(false);
 
         JLabel category = new JLabel("Patient Category: ");
         JTextField categoryField = new JTextField();
+        categoryField.setText(pCat);
         categoryField.setEditable(false);
 
         JLabel type = new JLabel("Instrument Type: ");
         JTextField typeField = new JTextField();
+        typeField.setText(instT);
         typeField.setEditable(false);
-
-        //connection
-        //conn = DriverManager.getConnection(
-        //        "jdbc:mysql://localhost:3306/mydb", "root", "1486630878Su");
-        conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/cs157A?useTimezone=true&serverTimezone=UTC","shuangpan", "FEIfei5217?");
-        stmt = conn.createStatement();
-
-        ResultSet rs = stmt.executeQuery("select* from patient where"
-                + " THC = " + thc + ";");
-
-        rs.next();
-        
-        //
-        THCField.setText(thc);
-        categoryField.setText(String.valueOf(rs.getInt(4)));
-        nameField.setText(rs.getString(3) + " " + rs.getString(2));
-
-        rs = stmt.executeQuery("select DATE from visit where PATIENT_THC = "
-                + thc + ";");
-        rs.next();
-        dateField.setText(String.valueOf(rs.getDate(1)));
-
-        rs = stmt.executeQuery("select* from "
-                + "instrument where VISIT_PATIENT_THC = " + thc + ";");
-        rs.next();
-
-        int instTypeID = rs.getInt(5);
-
-        rs = stmt.executeQuery("select NAME from instrument_types where "
-                + "IT_ID = " + instTypeID + ";");
-        rs.next();
-
-        typeField.setText(rs.getString(1));
 
         remPanel.add(nameLabel);
         remPanel.add(nameField);
@@ -158,6 +110,11 @@ public class Main extends JFrame {
         //add(rightPanel);
         //add(remMain);
         add(lowerPanel);
+        
+        setPreferredSize(new Dimension(600, 680));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        setVisible(true);
 
     }
 
