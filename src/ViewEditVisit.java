@@ -22,6 +22,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * A class to build the view and edit interface
+ * @author shuangpan
+ *
+ */
 public class ViewEditVisit extends JFrame{
 	/**
 	 * Default serial Version ID
@@ -39,6 +44,11 @@ public class ViewEditVisit extends JFrame{
 	private JComboBox<String> sortTableBy;
 	private JPanel sort;
 	private JScrollPane scroll;
+	
+	/**
+	 * Constructor to collect data 
+	 * @throws SQLException sql exception
+	 */
 	public ViewEditVisit() throws SQLException { 
 		connectToDataBase();
 		createTablePanel();
@@ -60,6 +70,10 @@ public class ViewEditVisit extends JFrame{
 	    setVisible(true);
 	}
 	
+	/**
+	 * Connect to mysql database
+	 * @throws SQLException sql exception
+	 */
 	private void connectToDataBase() throws SQLException {
 	    DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
@@ -70,6 +84,10 @@ public class ViewEditVisit extends JFrame{
 	    stmt = conn.createStatement ();
 	}
 	
+	/**
+	 * Get data from database and display them using JTable
+	 * @throws SQLException
+	 */
 	private void createTablePanel() throws SQLException {
 		tablePanel = new JPanel();
         stmt = (Statement) conn.createStatement();
@@ -119,6 +137,9 @@ public class ViewEditVisit extends JFrame{
         tablePanel.add(scroll);
     }
 	
+	/**
+	 * Filter, sort the table
+	 */
 	private void editFunction() {
 		functionPanel = new JPanel();
 		sort = new JPanel();
@@ -128,6 +149,7 @@ public class ViewEditVisit extends JFrame{
 		sort.add(sortTable);
 		sort.add(sortTableBy);
 		
+		//sort the table by visit_id
 		sortTableBy.addActionListener(new ActionListener() {
 
 			@Override
@@ -184,6 +206,8 @@ public class ViewEditVisit extends JFrame{
 				        tablePanel.add(scroll);
 				        tablePanel.revalidate();
 					}
+					
+					// sort data by date
 					else if(item.equals("Date")) {
 						tablePanel.remove(scroll);
 						
@@ -234,6 +258,7 @@ public class ViewEditVisit extends JFrame{
 				        tablePanel.add(scroll);
 				        tablePanel.revalidate();
 					}
+					//sort data by instrument
 					else {
 						tablePanel.remove(scroll);
 						
@@ -316,6 +341,8 @@ public class ViewEditVisit extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		        try {
+		        	
+		        	// filter the table by input date
 					tablePanel.remove(scroll);
 					
 			        stmt = (Statement) conn.createStatement();
@@ -383,6 +410,7 @@ public class ViewEditVisit extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		        try {
+		        	// filter the table by patient name
 					tablePanel.remove(scroll);
 					
 			        stmt = (Statement) conn.createStatement();
@@ -443,7 +471,7 @@ public class ViewEditVisit extends JFrame{
 		deleteRow.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {   // delete the visit
 				int[] rows = jtable.getSelectedRows();
 				int j = 0;
 				for(int i = 0; i < rows.length; i++) {

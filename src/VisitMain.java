@@ -6,6 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * A class to build the main interface
+ * @author shuangpan
+ *
+ */
 public class VisitMain extends JFrame{
 	@SuppressWarnings("unused")
 	private VisitMain ownReference;
@@ -15,6 +20,9 @@ public class VisitMain extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor to collect data
+	 */
 	public VisitMain() {
 		createButton();
 		
@@ -27,6 +35,9 @@ public class VisitMain extends JFrame{
 	    setVisible(true);
 	}
 	
+	/**
+	 * Create two buttons at the main interface.
+	 */
 	private void createButton() {
 		mainPanel = new JPanel();
 		
@@ -70,6 +81,10 @@ public class VisitMain extends JFrame{
 		});
 	}
 	
+	/**
+	 * Get own reference to dispose self
+	 * @param ownReference own reference
+	 */
 	public void setOwnReference(VisitMain ownReference) {
 		this.ownReference = ownReference;
 		

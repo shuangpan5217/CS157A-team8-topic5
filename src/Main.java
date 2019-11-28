@@ -20,6 +20,11 @@ import java.awt.event.FocusListener;
 import java.sql.*;
 import javax.swing.Box;
 
+/**
+ * A class to build REM interface
+ * @author chunyou su
+ *
+ */
 public class Main extends JFrame {
 
     /**
@@ -39,12 +44,22 @@ public class Main extends JFrame {
 
     private CreateInterface createReference;
 
-
+    /**
+     * Empty construcotr
+     */
     public Main() {//throws SQLException {
 
 
     }
 
+    /**
+     * Set the inactive panel
+     * @param thc patient thc number
+     * @param name patient full name
+     * @param date date of today
+     * @param pCat patient category
+     * @param instT instrument type
+     */
     public void remPanel(String thc, String name, String date,
             String pCat, String instT) {
         remPanel = new JPanel();
@@ -118,6 +133,9 @@ public class Main extends JFrame {
 
     }
 
+    /**
+     * Set save and cancel button
+     */
     private void lowerPanel() {
         lowerPanel = new JPanel();
         JButton saveButton = new JButton("SAVE");
@@ -148,6 +166,9 @@ public class Main extends JFrame {
 
     }
 
+    /**
+     * Build the right panel to get all information from parameters
+     */
     private void mainRightP() {
         Container vBox = Box.createVerticalBox();
 
@@ -307,6 +328,9 @@ public class Main extends JFrame {
 
     }
 
+    /**
+     * Build the left panel to get all information from parameters
+     */
     private void mainLeftP() {
         rightPanel = new JPanel();
         rightPanel.setLayout(new GridLayout(7, 2, 0, 10));
@@ -470,10 +494,18 @@ public class Main extends JFrame {
 
     }
 
+    /**
+     * Get the CreateInterface type reference
+     * @param refer CreateInterface type reference
+     */
     public void setCreateReference(CreateInterface refer) {
         this.createReference = refer;
     }
 
+    /**
+     *  Get the own reference for diposal
+     * @param ownReference own Reference
+     */
     public void setOwnReference(Main ownReference) {
         this.ownReference = ownReference;
     }
